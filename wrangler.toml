@@ -1,6 +1,7 @@
 name = "unofficial-glastonbury-2025"
-main = "dist/worker.js"
+main = "worker.ts"
 compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
 
 [env.production]
 name = "unofficial-glastonbury-2025"
@@ -8,23 +9,17 @@ name = "unofficial-glastonbury-2025"
 [env.staging]
 name = "unofficial-glastonbury-2025-staging"
 
+# Build configuration
 [build]
-command = "npm run build:worker"
-cwd = "./"
+command = "npm run build:client"
 
+# Environment variables
 [vars]
 NODE_ENV = "production"
 
-[site]
-bucket = ".dist/client"
-
-# Routes
-[[rules]]
-type = "Rule"
-globs = ["*/api/*"]
-script =  "unofficial-glastonbury-2025"
-
-[[rules]]
-type = "Rule"
-globs = ["*"]
-script = "unofficial-glastonbury-2025"
+# Assets configuration for static files
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "single-page-application"

@@ -10,7 +10,7 @@ name = "unofficial-glastonbury-2025-staging"
 
 [build]
 command = "npm run build:worker"
-cwd "./"
+cwd = "./"
 
 [vars]
 NODE_ENV = "production"

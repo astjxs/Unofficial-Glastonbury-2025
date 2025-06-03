@@ -47,7 +47,7 @@ npm install
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5000`
+4. Open your browser and navigate to `http://localhost:3000`
 
 ## Project Structure
 
@@ -125,7 +125,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
-EXPOSE 5000
+EXPOSE 3000
 CMD ["npm", "run", "dev"]
 ```
 

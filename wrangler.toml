@@ -1,6 +1,4 @@
 name = "worker-name"
 compatibility_date = "2023-03-21"
-main = "index.ts"
-
-type = "javascript"
+main = "server/index.ts"
 workers_dev = true

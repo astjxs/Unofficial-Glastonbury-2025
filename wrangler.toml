@@ -1,4 +1,4 @@
 name = "unofficial-glastonbury-2025"
 compatibility_date = "2023-03-21"
-main = "dist/index.js"
+main = "server/index.js"
 workers_dev = true

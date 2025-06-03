@@ -112,12 +112,6 @@ This app requires a backend server, so GitHub Pages won't work for the full appl
 3. Set build command: `npm run build`
 4. Deploy
 
-### Railway/Render (Full-stack)
-1. Push your code to GitHub
-2. Connect repository to Railway or Render
-3. Set start command: `npm run dev`
-4. Deploy with database if needed
-
 ### Docker Deployment
 ```dockerfile
 FROM node:20-alpine

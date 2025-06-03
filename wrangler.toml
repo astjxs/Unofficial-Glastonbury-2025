@@ -1,17 +1,6 @@
 name = "worker-name"
 compatibility_date = "2023-03-21"
-main = "server/index.ts"
+main = "index.ts"
 
 type = "javascript"
-account_id = ""
 workers_dev = true
-route = ""
-zone_id = ""
-
-
-
-[build]
-command = "yarn build"
-
-[build.upload]
-format = "service-worker"

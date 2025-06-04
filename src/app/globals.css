@@ -1,0 +1,56 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .stage-card {
+    @apply bg-white rounded-lg shadow-md p-4 border-l-4;
+  }
+  
+  .pyramid-stage {
+    @apply border-l-glastonbury-orange;
+  }
+  
+  .other-stage {
+    @apply border-l-glastonbury-blue;
+  }
+  
+  .west-holts-stage {
+    @apply border-l-glastonbury-green;
+  }
+  
+  .woodsies {
+    @apply border-l-glastonbury-purple;
+  }
+  
+  .park-stage {
+    @apply border-l-pink-500;
+  }
+  
+  .acoustic-stage {
+    @apply border-l-yellow-500;
+  }
+  
+  .avalon-stage {
+    @apply border-l-red-500;
+  }
+  
+  .arcadia {
+    @apply border-l-indigo-500;
+  }
+  
+  .levels {
+    @apply border-l-cyan-500;
+  }
+  
+  .leftfield-stage {
+    @apply border-l-emerald-500;
+  }
+}

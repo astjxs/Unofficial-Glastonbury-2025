@@ -13,7 +13,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'schedule' | 'selector' | 'my-schedule'>('schedule')
   
   const allPerformances = useMemo(() => parseSetlistData(), [])
-  console.log('All Performances:', allPerformances); // <-- Add this line
   
   const togglePerformance = (performanceId: string) => {
     setSelectedPerformances(prev => {

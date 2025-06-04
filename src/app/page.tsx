@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react' // Import useEffect
 import { parseSetlistData } from '../utils/setlistParser'
 import { ScheduleGrid } from '../components/ScheduleGrid'
 import { ArtistSelector } from '../components/ArtistSelector'
@@ -9,10 +9,33 @@ import { MySchedule } from '../components/MySchedule'
 import { Performance } from '../types/schedule'
 
 export default function Home() {
-  const [selectedPerformances, setSelectedPerformances] = useState<Set<string>>(new Set())
+  const [selectedPerformances, setSelectedPerformances] = useState<Set<string>>(() => {
+    // Load selected performances from localStorage on initial render
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('selectedGlastoPerformances')
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved)
+          return new Set(parsed)
+        } catch (e) {
+          console.error('Failed to parse selected performances from localStorage', e)
+          return new Set()
+        }
+      }
+    }
+    return new Set()
+  })
   const [activeTab, setActiveTab] = useState<'schedule' | 'selector' | 'my-schedule'>('schedule')
   
   const allPerformances = useMemo(() => parseSetlistData(), [])
+  // console.log('All Performances:', allPerformances); // You can remove or keep this for debugging
+
+  // Save selected performances to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('selectedGlastoPerformances', JSON.stringify(Array.from(selectedPerformances)))
+    }
+  }, [selectedPerformances])
   
   const togglePerformance = (performanceId: string) => {
     setSelectedPerformances(prev => {

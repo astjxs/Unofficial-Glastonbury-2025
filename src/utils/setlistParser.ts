@@ -4,7 +4,7 @@ import { Performance } from '../types/schedule'
 const setlistData = `Glastonbury 2025
 
 Pyramid Stage - Friday 27 June
-The 1975: 22:15 - 23:45 (pictured)
+The 1975: 22:15 - 23:45
 Biffy Clyro: 20:15 - 21:25
 Alanis Morissette: 18:15 - 19:15
 TBA: 16:55 - 17:30
@@ -37,7 +37,7 @@ Inhaler: 14:15 - 15:15
 Rizzle Kicks: 13:00 - 13:45
 Fabio & Grooverider And The Outlook Orchestra: 11:30 - 12:30
 Other Stage - Saturday 28 June
-Charli XCX: 22:30 - 23:45 (pictured)
+Charli XCX: 22:30 - 23:45 
 Deftones: 20:30 - 21:30
 Ezra Collective: 18:45 - 19:45
 Amyl & The Sniffers: 17:00 - 18:00
@@ -64,7 +64,7 @@ Glass Beams: 14:30 - 15:25
 Ca7riel & Paco Amoroso: 13:00 - 14:00
 Corto.Alto: 11:30 - 12:30
 West Holts Stage - Saturday 28 June
-Doechii: 22:15 - 23:45 (pictured)
+Doechii: 22:15 - 23:45
 Amaarae: 20:30 - 21:30
 Greentea Peng: 19:00 - 20:00
 Yussef Dayes: 17:30 - 18:30
@@ -92,7 +92,7 @@ Fat Dog: 14:00 - 14:45
 Myles Smith: 12:45 - 13:30
 TBA: 11:30 - 12:15
 Woodsies - Saturday 28 June
-Scissor Sisters: 22:30 - 23:45 (pictured)
+Scissor Sisters: 22:30 - 23:45
 Tom Odell: 21:00 - 22:00
 Father John Misty: 19:30 - 20:30
 TV On The Radio: 18:00 - 19:00
@@ -122,7 +122,7 @@ John Glacier: 12:45 - 13:30
 Horsegirl: 10:30 - 12:10
 The Park Stage - Saturday 28 June
 Caribou: 23:00 - 00:15
-Beth Gibbons: 21:15 - 22:15 (pictured)
+Beth Gibbons: 21:15 - 22:15
 TBA: 19:30 - 22:30
 Gary Numan: 18:00 - 19:00
 Pa Salieu: 16:45 - 17:30
@@ -163,7 +163,7 @@ Lorraine Nash: 12:10 - 12:40
 Henry Grace: 11:30 - 12:00
 Acoustic Stage - Sunday 29 June
 Roy Harper: 21:30 - 22:30
-The Bootleg Beatles: 20:00 - 21:00 (pictured)
+The Bootleg Beatles: 20:00 - 21:00
 Rhiannon Giddens With Dirk Powell: 18:30 - 19:30
 London Community Gospel Choir: 17:00 - 18:00
 PP Arnold: 16:00 - 16:40
@@ -184,7 +184,7 @@ Beans On Toast: 12:50 - 13:40
 Avalon Stage - Saturday 28 June
 Hard-Fi: 23:10 - 00:20
 Tom Walker: 21:40 - 22:40
-Rachel Chinouriri: 20:10 - 21:10 (pictured)
+Rachel Chinouriri: 20:10 - 21:10
 Jade Bird: 18:40 - 19:40
 The Amy Winehouse Band: 17:10 - 18:10
 Jamie Cullum: 15:40 - 16:40
@@ -203,7 +203,7 @@ Talisk: 12:30 - 13:25
 Dea Matrona: 11:25 - 12:05
 Arcadia - Friday 27 June
 Job Jobse B2B Palms Trax: 02:00 - 03:00
-Romy: 01:00 - 02:00 (pictured)
+Romy: 01:00 - 02:00
 Sonny Fodera: 00:00 - 01:00
 Dragonfly Show: 23:50 - 00:00
 Max Cooper: 22:50 - 23:50
@@ -230,7 +230,7 @@ Jeremiah Asiamah: 20:00 - 21:00
 Levels - Thursday 26 June
 Adiel: 01:00 - 03:00
 Marie Davidson: 23:30 - 01:00
-Pinkpantheress [Nocturnal Set]: 23:00 - 23:30 (pictured)
+Pinkpantheress [Nocturnal Set]: 23:00 - 23:30
 Confidence Man (DJ) B2B Job Jobse: 21:00 - 23:00
 Palms Trax: 19:30 - 21:00
 Peach B2B Club Fitness: 18:00 - 19:30
@@ -271,7 +271,7 @@ Rio Tashan: 13:15 - 14:45
 Dani Whylie: 12:00 - 13:15
 Leftfield Stage - Friday 27 June
 Billy Bragg: 21:00 - 22:00
-Antony Szmierek: 19:50 - 20:30 (pictured)
+Antony Szmierek: 19:50 - 20:30
 Jasmine.4.T: 18:40 - 19:20
 Gurriers: 17:35 - 18:10
 The Meffs: 16:30 - 17:05
@@ -304,19 +304,21 @@ export function parseSetlistData(): Performance[] {
   let currentStage = ''
   let currentDay = ''
   
+  // Regex to identify stage and day headers more reliably
+  // It looks for a pattern like "Stage Name - Day Date Month"
+  const headerRegex = /^(.*?)\s*-\s*(Thursday|Friday|Saturday|Sunday)\s+\d{1,2}\s+(June|July|August|September|October|November|December)$/i;
+
   for (const line of lines) {
     const trimmedLine = line.trim()
     
     if (trimmedLine === 'Glastonbury 2025') continue
     
-    // Check for stage and day headers
-    if (trimmedLine.includes(' - ')) {
-      const parts = trimmedLine.split(' - ')
-      if (parts.length === 2) {
-        currentStage = parts[0].trim()
-        currentDay = parts[1].trim()
-        continue
-      }
+    // Check for stage and day headers using the new regex
+    const headerMatch = trimmedLine.match(headerRegex);
+    if (headerMatch) {
+      currentStage = headerMatch[1].trim(); // The part before " - Day Date Month"
+      currentDay = headerMatch[0].substring(currentStage.length + 3).trim(); // The "Day Date Month" part
+      continue
     }
     
     // Parse performance lines

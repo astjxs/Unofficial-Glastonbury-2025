@@ -191,7 +191,7 @@ Jamie Cullum: 15:40 - 16:40
 Stephen Wilson Jr.: 14:15 - 15:10
 Bess Atwell: 12:50 - 13:45
 Fülü: 11:30 - 12:20
-Avalon Stage - Saturday 29 June
+Avalon Stage - Saturday 28 June
 Alabama 3: 22:50 - 23: 50
 Bear's Den: 21:20 - 22:20
 Sam Ryder: 19:50 - 20:50

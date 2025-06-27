@@ -7,6 +7,8 @@ import { ScheduleGrid } from '../components/ScheduleGrid'
 import { ArtistSelector } from '../components/ArtistSelector'
 import { MySchedule } from '../components/MySchedule'
 import { Performance } from '../types/schedule'
+import { FaCalendarAlt, FaMicrophone, FaStar, FaClock } from 'react-icons/fa'; // Import icons, add FaClock
+import { PlayingNow } from '../components/PlayingNow'; // Import PlayingNow component
 
 export default function Home() {
   const [selectedPerformances, setSelectedPerformances] = useState<Set<string>>(() => {
@@ -25,7 +27,7 @@ export default function Home() {
     }
     return new Set()
   })
-  const [activeTab, setActiveTab] = useState<'schedule' | 'selector' | 'my-schedule'>('schedule')
+  const [activeTab, setActiveTab] = useState<'schedule' | 'selector' | 'my-schedule' | 'now'>('schedule') // Add 'now' tab
   
   const allPerformances = useMemo(() => parseSetlistData(), [])
   // console.log('All Performances:', allPerformances); // You can remove or keep this for debugging
@@ -94,7 +96,8 @@ export default function Home() {
         </div>
       </header>
 
-      <nav className="bg-white border-b">
+      {/* Existing navigation - hidden on mobile */}
+      <nav className="bg-white border-b hidden sm:block">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex space-x-8">
             {[
@@ -142,7 +145,36 @@ export default function Home() {
             onRemovePerformance={(id) => togglePerformance(id)}
           />
         )}
+        
+        {activeTab === 'now' && ( // Add condition for 'now' tab
+          <PlayingNow />
+        )}
       </main>
+
+      {/* Mobile Navigation Bar */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t sm:hidden">
+        <div className="flex justify-around h-16 items-center">
+          {[ 
+            { key: 'schedule', label: 'Schedule', icon: FaCalendarAlt },
+            { key: 'selector', label: 'Artists', icon: FaMicrophone },
+            { key: 'my-schedule', label: 'My Plan', icon: FaStar },
+            { key: 'now', label: 'Now', icon: FaClock } // Add 'Now' tab with icon
+          ].map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as any)}
+              className={`flex flex-col items-center justify-center text-xs font-medium ${ 
+                activeTab === tab.key
+                  ? 'text-glastonbury-green' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <tab.icon className="w-5 h-5 mb-1" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </nav>
     </div>
   )
 }
